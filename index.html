@@ -40,6 +40,7 @@ circle{fill:none;stroke-width:8}.rbg{stroke:#0f172a}.rfg{stroke-linecap:round;tr
 .nbox{padding:11px;margin-top:12px}.nbox label{display:block;font-size:12px;color:#94a3b8;margin-bottom:5px}
 textarea{width:100%;background:#0f172a;border:1px solid #334155;border-radius:9px;color:#fff;padding:8px;font-family:inherit;font-size:14px;min-height:54px}
 .foot{margin-top:14px;font-size:12px;color:#94a3b8}.rbtn{background:none;border:1px solid #475569;color:#94a3b8;padding:5px 9px;border-radius:8px;font-size:12px}
+.cbtn{width:100%;margin-top:14px;padding:13px;background:#334155;border:1px solid #475569;border-radius:13px;color:#f8fafc;font-size:15px;font-weight:600;cursor:pointer}
 </style>
 </head>
 <body>
@@ -71,9 +72,10 @@ textarea{width:100%;background:#0f172a;border:1px solid #334155;border-radius:9p
 <div class="stitle">Вечір / Ніч</div><div id="eT"></div>
 <div class="nbox"><label for="dNt">Нотатка за день:</label><textarea id="dNt" placeholder="Як ноги після рейсу..."></textarea></div>
 <div class="foot"><span>Збереження активне</span><button class="rbtn" id="rB">Дата старту</button></div>
+<button class="cbtn" id="cB">Закрити</button>
 </div>
 <script>
-if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');
+if('serviceWorker'in navigator)navigator.serviceWorker.register('/Vein-tracker/sw.js');
 const $=i=>document.getElementById(i),T=[
   {id:'c_am',p:'m',t:'Намастити ноги (LivRelief)',d:'Тонким шаром вранці'},
   {id:'p_md',p:'d',t:'Випити 1 таблетку Venixxa',d:'Вдень під час обіду'},
@@ -95,7 +97,7 @@ function render(){
   $('tJ').style.visibility=k===tk?'hidden':'visible';
   const df=Math.floor((cur-new Date(st()+'T12:00:00'))/864e5)+1;
   $('dB').textContent=df>=1?'День '+df+' / 60':'До старту';
-  const dn=Math.min(G,Object.values(d).filter(x=>x.checks&&T.filter(t=>x.checks[t.id]).length>=3).length),lf=Math.max(0,G-dn);
+  const dn=Math.min(G,Object.values(d).filter(x=>x.checks&&T.filter(t=>x.checks[t.id]).length>=1).length),lf=Math.max(0,G-dn);
   $('dN').textContent=dn;$('lN').textContent=lf;
   $('dR').style.strokeDashoffset=C*(1-dn/G);$('lR').style.strokeDashoffset=C*(1-lf/G);
   $('pL').textContent=Math.round(dn/G*100)+'% курсу';
@@ -115,6 +117,7 @@ $('nD').onclick=()=>{cur.setDate(cur.getDate()+1);render()};
 $('tJ').onclick=()=>{cur=new Date();cur.setHours(12,0,0,0);render()};
 $('dNt').oninput=e=>{const d=ld(),k=dk(cur);if(!d[k])d[k]={checks:{},note:''};d[k].note=e.target.value;sv(d)};
 $('rB').onclick=()=>{const n=prompt('Дата старту (РРРР-ММ-ДД):',st());if(n&&/^\d{4}-\d{2}-\d{2}$/.test(n)){s(SDK,n);render()}};
+$('cB').onclick=()=>{window.close();if(history.length>1)history.back();else location.href='about:blank'};
 render();
 </script>
 </body>
