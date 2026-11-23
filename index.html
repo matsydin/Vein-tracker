@@ -11,13 +11,10 @@
 <title>Режим для вен</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#f8fafc;padding:0 14px 24px;display:flex;justify-content:center}
-.app{width:100%;max-width:460px}
-header{position:sticky;top:0;z-index:20;background:rgba(15,23,42,.95);backdrop-filter:blur(8px);padding:12px 0;margin-bottom:8px;border-bottom:1px solid #1e293b;display:flex;justify-content:space-between;align-items:center;gap:8px}
-h1{font-size:18px;margin:0;white-space:nowrap}
-.hright{display:flex;align-items:center;gap:10px}
-.xbtn{background:#ef444422;border:1px solid #ef444466;color:#f87171;width:32px;height:32px;border-radius:9px;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.nav,.phead,.foot{display:flex;justify-content:space-between;align-items:center}
+body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#f8fafc;padding:14px;display:flex;justify-content:center}
+.app{width:100%;max-width:460px;padding-bottom:24px}
+header,.nav,.phead,.foot{display:flex;justify-content:space-between;align-items:center}
+header{margin-bottom:10px}h1{font-size:19px;margin:0}
 .nav,.rcard,.prog,.card,.nbox{background:#1e293b;border:1px solid #334155;border-radius:13px}
 .nav{padding:8px 10px;margin-bottom:10px}
 .nbtn{background:#334155;color:#fff;border:none;border-radius:9px;width:36px;height:36px;font-size:18px}
@@ -47,13 +44,7 @@ textarea{width:100%;background:#0f172a;border:1px solid #334155;border-radius:9p
 </head>
 <body>
 <div class="app">
-<header>
-  <h1>🦵 Режим для вен</h1>
-  <div class="hright">
-    <span id="dB" style="font-size:13px;color:#38bdf8;font-weight:600">День 1 / 60</span>
-    <button class="xbtn" id="cB" title="Закрити">✕</button>
-  </div>
-</header>
+<header><h1>🦵 Режим для вен</h1><span id="dB" style="font-size:13px;color:#38bdf8;font-weight:600">День 1 / 60</span></header>
 <div class="nav">
   <button class="nbtn" id="pD">‹</button>
   <div><div class="dmain" id="dM">Сьогодні</div><div class="dsub" id="tJ">На сьогодні</div></div>
@@ -124,7 +115,6 @@ $('nD').onclick=()=>{cur.setDate(cur.getDate()+1);render()};
 $('tJ').onclick=()=>{cur=new Date();cur.setHours(12,0,0,0);render()};
 $('dNt').oninput=e=>{const d=ld(),k=dk(cur);if(!d[k])d[k]={checks:{},note:''};d[k].note=e.target.value;sv(d)};
 $('rB').onclick=()=>{const n=prompt('Дата старту (РРРР-ММ-ДД):',st());if(n&&/^\d{4}-\d{2}-\d{2}$/.test(n)){s(SDK,n);render()}};
-$('cB').onclick=()=>{window.close();if(history.length>1)history.back();else location.href='about:blank'};
 render();
 </script>
 </body>
