@@ -5,25 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#0f172a">
 <meta name="mobile-web-app-capable" content="yes">
-<link id="favIcon" rel="icon" type="image/png">
-<link id="appIcon" rel="apple-touch-icon">
-<link id="appMan" rel="manifest">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="manifest" href="manifest.json">
 <title>Режим для вен</title>
-<script>
-(()=>{
-  const c=document.createElement('canvas');c.width=c.height=512;
-  const x=c.getContext('2d');
-  x.fillStyle='#0f172a';x.beginPath();x.roundRect(0,0,512,512,110);x.fill();
-  x.strokeStyle='#22c55e';x.lineWidth=38;x.beginPath();x.arc(256,256,175,0,Math.PI*2);x.stroke();
-  x.strokeStyle='#38bdf8';x.lineWidth=44;x.lineCap='round';x.lineJoin='round';
-  x.beginPath();x.moveTo(175,265);x.lineTo(232,322);x.lineTo(342,196);x.stroke();
-  const png=c.toDataURL('image/png');
-  document.getElementById('favIcon').href=png;
-  document.getElementById('appIcon').href=png;
-  const m={name:'Режим для вен',short_name:'Режим для вен',start_url:location.href,display:'standalone',background_color:'#0f172a',theme_color:'#0f172a',icons:[{src:png,sizes:'512x512',type:'image/png'}]};
-  document.getElementById('appMan').href='data:application/manifest+json,'+encodeURIComponent(JSON.stringify(m));
-})();
-</script>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#f8fafc;padding:14px;display:flex;justify-content:center}
@@ -88,6 +73,7 @@ textarea{width:100%;background:#0f172a;border:1px solid #334155;border-radius:9p
 <div class="foot"><span>Збереження активне</span><button class="rbtn" id="rB">Дата старту</button></div>
 </div>
 <script>
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');
 const $=i=>document.getElementById(i),T=[
   {id:'c_am',p:'m',t:'Намастити ноги (LivRelief)',d:'Тонким шаром вранці'},
   {id:'p_md',p:'d',t:'Випити 1 таблетку Venixxa',d:'Вдень під час обіду'},
