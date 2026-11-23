@@ -1,15 +1,15 @@
 {
   "name": "Режим для вен",
   "short_name": "Режим для вен",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "/Vein-tracker/",
+  "scope": "/Vein-tracker/",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",
   "icons": [
     {
-      "src": "icon.png",
-      "sizes": "512x512",
+      "src": "/Vein-tracker/icon.png",
+      "sizes": "1024x1024 512x512 192x192",
       "type": "image/png",
       "purpose": "any"
     }
