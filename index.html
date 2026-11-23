@@ -5,10 +5,28 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#0f172a">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="icon" type="image/png" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png">
-<link rel="manifest" href="manifest.json">
+<link id="favIcon" rel="icon" type="image/png">
+<link id="appIcon" rel="apple-touch-icon">
+<link id="appMan" rel="manifest">
 <title>Режим для вен</title>
+<script>
+(()=>{
+  const c=document.createElement('canvas');c.width=c.height=512;
+  const x=c.getContext('2d');
+  x.fillStyle='#0f172a';x.fillRect(0,0,512,512);
+  x.strokeStyle='#22c55e';x.lineWidth=32;x.beginPath();x.arc(256,256,216,0,Math.PI*2);x.stroke();
+  x.strokeStyle='#64748b';x.lineWidth=16;x.lineCap='round';x.lineJoin='round';
+  x.beginPath();x.moveTo(145,105);x.lineTo(195,125);x.lineTo(255,270);x.lineTo(260,335);x.lineTo(345,380);x.quadraticCurveTo(360,395,335,402);x.lineTo(235,388);x.quadraticCurveTo(212,380,218,350);x.lineTo(210,315);x.lineTo(145,180);x.lineTo(110,165);x.stroke();
+  x.strokeStyle='#38bdf8';x.lineWidth=18;
+  x.beginPath();x.moveTo(155,135);x.quadraticCurveTo(205,215,238,345);x.stroke();
+  x.lineWidth=12;x.beginPath();x.moveTo(195,210);x.quadraticCurveTo(222,250,218,290);x.stroke();
+  const png=c.toDataURL('image/png');
+  document.getElementById('favIcon').href=png;
+  document.getElementById('appIcon').href=png;
+  const m={name:'Режим для вен',short_name:'Режим для вен',start_url:location.href,display:'standalone',background_color:'#0f172a',theme_color:'#0f172a',icons:[{src:png,sizes:'512x512',type:'image/png'}]};
+  document.getElementById('appMan').href='data:application/manifest+json,'+encodeURIComponent(JSON.stringify(m));
+})();
+</script>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#f8fafc;padding:14px;display:flex;justify-content:center}
