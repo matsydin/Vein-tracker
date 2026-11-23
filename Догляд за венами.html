@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Режим для вен</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#f8fafc;padding:14px;display:flex;justify-content:center}
+.app{width:100%;max-width:460px;padding-bottom:24px}
+header,.nav,.phead,.foot{display:flex;justify-content:space-between;align-items:center}
+header{margin-bottom:10px}h1{font-size:19px;margin:0}
+.warn{display:none;background:#451a03;border:1px solid #b45309;color:#fde68a;font-size:12px;padding:9px;border-radius:10px;margin-bottom:10px}
+.nav,.rcard,.prog,.card,.nbox{background:#1e293b;border:1px solid #334155;border-radius:13px}
+.nav{padding:8px 10px;margin-bottom:10px}
+.nbtn{background:#334155;color:#fff;border:none;border-radius:9px;width:36px;height:36px;font-size:18px}
+.dmain{font-weight:700;font-size:15px;text-align:center}.dsub{font-size:12px;color:#38bdf8;text-align:center;margin-top:2px}
+.rings{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.rcard{padding:10px;text-align:center}
+.rwrap{position:relative;width:80px;height:80px;margin:0 auto 5px}
+.rwrap svg{transform:rotate(-90deg);width:80px;height:80px}
+circle{fill:none;stroke-width:8}.rbg{stroke:#0f172a}.rfg{stroke-linecap:round;transition:stroke-dashoffset .3s}
+.rcenter{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.rnum{font-size:18px;font-weight:800}.runit{font-size:10px;color:#94a3b8}
+.rtitle{font-size:12px;font-weight:600;color:#cbd5e1}
+.prog{padding:11px 13px;margin-bottom:12px}.phead{font-size:13px;color:#94a3b8;margin-bottom:7px}.phead strong{color:#fff}
+.pbar{height:8px;background:#0f172a;border-radius:99px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,#38bdf8,#22c55e);width:0%;transition:width .2s}
+.stitle{font-size:11px;text-transform:uppercase;color:#94a3b8;margin:14px 0 6px 3px;font-weight:700}
+.card{padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.card.done{border-color:#22c55e80;background:#22c55e22}
+.chk{width:26px;height:26px;border-radius:7px;border:2px solid #64748b;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;color:transparent}
+.card.done .chk{background:#22c55e;border-color:#22c55e;color:#052e16}
+.ttitle{font-size:15px;font-weight:600;margin-bottom:2px}.card.done .ttitle{text-decoration:line-through;color:#cbd5e1}
+.tdesc{font-size:12px;color:#94a3b8}.ttime{font-size:11px;color:#22c55e;margin-top:3px}
+.nbox{padding:11px;margin-top:12px}.nbox label{display:block;font-size:12px;color:#94a3b8;margin-bottom:5px}
+textarea{width:100%;background:#0f172a;border:1px solid #334155;border-radius:9px;color:#fff;padding:8px;font-family:inherit;font-size:14px;min-height:54px}
+.foot{margin-top:14px;font-size:12px;color:#94a3b8}.rbtn{background:none;border:1px solid #475569;color:#94a3b8;padding:5px 9px;border-radius:8px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="app">
+<header><h1>🦵 Режим для вен</h1><span id="dB" style="font-size:13px;color:#38bdf8;font-weight:600">День 1 / 60</span></header>
+<div class="warn" id="wB">⚠️ Відкрийте файл через <b>Samsung Internet</b> (Мої файли → Завантаження → Відкрити за допомогою), щоб пам'ять зберігалась.</div>
+<div class="nav">
+  <button class="nbtn" id="pD">‹</button>
+  <div><div class="dmain" id="dM">Сьогодні</div><div class="dsub" id="tJ">На сьогодні</div></div>
+  <button class="nbtn" id="nD">›</button>
+</div>
+<div class="rings">
+  <div class="rcard">
+    <div class="rwrap"><svg viewBox="0 0 80 80"><circle class="rbg" cx="40" cy="40" r="32"/><circle class="rfg" id="dR" cx="40" cy="40" r="32" stroke="#22c55e" stroke-dasharray="201" stroke-dashoffset="201"/></svg>
+    <div class="rcenter"><span class="rnum" id="dN" style="color:#22c55e">0</span><span class="runit">з 60 дн.</span></div></div>
+    <div class="rtitle">Вже зроблено</div>
+  </div>
+  <div class="rcard">
+    <div class="rwrap"><svg viewBox="0 0 80 80"><circle class="rbg" cx="40" cy="40" r="32"/><circle class="rfg" id="lR" cx="40" cy="40" r="32" stroke="#38bdf8" stroke-dasharray="201" stroke-dashoffset="0"/></svg>
+    <div class="rcenter"><span class="rnum" id="lN" style="color:#38bdf8">60</span><span class="runit">днів</span></div></div>
+    <div class="rtitle">Залишилось</div>
+  </div>
+</div>
+<div class="prog">
+  <div class="phead"><span>Сьогодні: <strong id="tC">0 з 5</strong></span><span id="pL" style="color:#22c55e;font-weight:600">0%</span></div>
+  <div class="pbar"><div class="pfill" id="pF"></div></div>
+</div>
+<div class="stitle">Ранок</div><div id="mT"></div>
+<div class="stitle">Обід / День</div><div id="dT"></div>
+<div class="stitle">Вечір / Ніч</div><div id="eT"></div>
+<div class="nbox"><label for="dNt">Нотатка за день:</label><textarea id="dNt" placeholder="Як ноги після рейсу..."></textarea></div>
+<div class="foot"><span id="sS">Збереження активне</span><button class="rbtn" id="rB">Дата старту</button></div>
+</div>
+<script>
+const $=i=>document.getElementById(i),T=[
+  {id:'c_am',p:'m',t:'Намастити ноги (LivRelief)',d:'Тонким шаром, почекати 2–3 хв'},
+  {id:'s_am',p:'m',t:'Одягнути гольфи Sigvaris',d:'На 3–4 см нижче згину коліна'},
+  {id:'p_md',p:'d',t:'Випити 1 таблетку Venixxa',d:'Вдень під час обіду'},
+  {id:'p_ev',p:'e',t:'Випити 1 таблетку Venixxa',d:'Увечері під час вечері'},
+  {id:'c_pm',p:'e',t:'Зняти гольфи + LivRelief',d:'На ніч перед сном'}
+],SK='vt_data_v2',SDK='vt_start_v2',C=201,G=60;
+let mem={},ok=1,cur=new Date();cur.setHours(12,0,0,0);
+const g=k=>{try{return localStorage.getItem(k)}catch{ok=0;return mem[k]||null}};
+const s=(k,v)=>{try{localStorage.setItem(k,v)}catch{ok=0;mem[k]=v}};
+const dk=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const ld=()=>{try{return JSON.parse(g(SK))||{}}catch{return{}}};
+const sv=d=>s(SK,JSON.stringify(d));
+const st=()=>{let x=g(SDK);if(!x){x=dk(new Date());s(SDK,x)}return x};
+const tm=i=>{try{return new Date(i).toLocaleTimeString('uk-UA',{hour:'2-digit',minute:'2-digit'})}catch{return''}};
+function render(){
+  const d=ld(),k=dk(cur),tk=dk(new Date()),r=d[k]||{checks:{},note:''};
+  if(!ok||location.protocol==='content:'){$('wB').style.display='block';$('sS').textContent='Тимчасова пам’ять'}
+  const f=cur.toLocaleDateString('uk-UA',{weekday:'short',day:'numeric',month:'long'});
+  $('dM').textContent=k===tk?'Сьогодні ('+f+')':f;
+  $('tJ').style.visibility=k===tk?'hidden':'visible';
+  const df=Math.floor((cur-new Date(st()+'T12:00:00'))/864e5)+1;
+  $('dB').textContent=df>=1?'День '+df+' / 60':'До старту';
+  const dn=Math.min(G,Object.values(d).filter(x=>x.checks&&Object.keys(x.checks).length>=3).length),lf=Math.max(0,G-dn);
+  $('dN').textContent=dn;$('lN').textContent=lf;
+  $('dR').style.strokeDashoffset=C*(1-dn/G);$('lR').style.strokeDashoffset=C*(1-lf/G);
+  $('pL').textContent=Math.round(dn/G*100)+'% курсу';
+  const b={m:$('mT'),d:$('dT'),e:$('eT')};Object.values(b).forEach(e=>e.innerHTML='');
+  let cnt=0;
+  T.forEach(t=>{
+    const x=r.checks[t.id];if(x)cnt++;
+    const c=document.createElement('div');c.className='card'+(x?' done':'');
+    c.innerHTML='<div class="chk">✓</div><div><div class="ttitle">'+t.t+'</div><div class="tdesc">'+t.d+'</div>'+(x?'<div class="ttime">О '+tm(x)+'</div>':'')+'</div>';
+    c.onclick=()=>{const fd=ld();if(!fd[k])fd[k]={checks:{},note:''};if(fd[k].checks[t.id])delete fd[k].checks[t.id];else fd[k].checks[t.id]=new Date().toISOString();sv(fd);render()};
+    b[t.p].appendChild(c);
+  });
+  $('tC').textContent=cnt+' з '+T.length;$('pF').style.width=(cnt/T.length*100)+'%';$('dNt').value=r.note||'';
+}
+$('pD').onclick=()=>{cur.setDate(cur.getDate()-1);render()};
+$('nD').onclick=()=>{cur.setDate(cur.getDate()+1);render()};
+$('tJ').onclick=()=>{cur=new Date();cur.setHours(12,0,0,0);render()};
+$('dNt').oninput=e=>{const d=ld(),k=dk(cur);if(!d[k])d[k]={checks:{},note:''};d[k].note=e.target.value;sv(d)};
+$('rB').onclick=()=>{const n=prompt('Дата старту (РРРР-ММ-ДД):',st());if(n&&/^\d{4}-\d{2}-\d{2}$/.test(n)){s(SDK,n);render()}};
+render();
+</script>
+</body>
+</html>
