@@ -1,5 +1,5 @@
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open('vt-v2').then(c => c.addAll(['./', './index.html', './manifest.json', './icon.png'])));
+  e.waitUntil(caches.open('vt-v3').then(c => c.addAll(['./', './index.html', './manifest.json'])));
   self.skipWaiting();
 });
 self.addEventListener('fetch', e => {
