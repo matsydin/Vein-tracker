@@ -10,7 +10,6 @@ body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0f172a;
 .app{width:100%;max-width:460px;padding-bottom:24px}
 header,.nav,.phead,.foot{display:flex;justify-content:space-between;align-items:center}
 header{margin-bottom:10px}h1{font-size:19px;margin:0}
-.warn{display:none;background:#451a03;border:1px solid #b45309;color:#fde68a;font-size:12px;padding:9px;border-radius:10px;margin-bottom:10px}
 .nav,.rcard,.prog,.card,.nbox{background:#1e293b;border:1px solid #334155;border-radius:13px}
 .nav{padding:8px 10px;margin-bottom:10px}
 .nbtn{background:#334155;color:#fff;border:none;border-radius:9px;width:36px;height:36px;font-size:18px}
@@ -41,7 +40,6 @@ textarea{width:100%;background:#0f172a;border:1px solid #334155;border-radius:9p
 <body>
 <div class="app">
 <header><h1>🦵 Режим для вен</h1><span id="dB" style="font-size:13px;color:#38bdf8;font-weight:600">День 1 / 60</span></header>
-<div class="warn" id="wB">⚠️ Відкрийте файл через <b>Samsung Internet</b> (Мої файли → Завантаження → Відкрити за допомогою), щоб пам'ять зберігалась.</div>
 <div class="nav">
   <button class="nbtn" id="pD">‹</button>
   <div><div class="dmain" id="dM">Сьогодні</div><div class="dsub" id="tJ">На сьогодні</div></div>
@@ -60,26 +58,25 @@ textarea{width:100%;background:#0f172a;border:1px solid #334155;border-radius:9p
   </div>
 </div>
 <div class="prog">
-  <div class="phead"><span>Сьогодні: <strong id="tC">0 з 5</strong></span><span id="pL" style="color:#22c55e;font-weight:600">0%</span></div>
+  <div class="phead"><span>Сьогодні: <strong id="tC">0 з 4</strong></span><span id="pL" style="color:#22c55e;font-weight:600">0%</span></div>
   <div class="pbar"><div class="pfill" id="pF"></div></div>
 </div>
 <div class="stitle">Ранок</div><div id="mT"></div>
 <div class="stitle">Обід / День</div><div id="dT"></div>
 <div class="stitle">Вечір / Ніч</div><div id="eT"></div>
 <div class="nbox"><label for="dNt">Нотатка за день:</label><textarea id="dNt" placeholder="Як ноги після рейсу..."></textarea></div>
-<div class="foot"><span id="sS">Збереження активне</span><button class="rbtn" id="rB">Дата старту</button></div>
+<div class="foot"><span>Збереження активне</span><button class="rbtn" id="rB">Дата старту</button></div>
 </div>
 <script>
 const $=i=>document.getElementById(i),T=[
-  {id:'c_am',p:'m',t:'Намастити ноги (LivRelief)',d:'Тонким шаром, почекати 2–3 хв'},
-  {id:'s_am',p:'m',t:'Одягнути гольфи Sigvaris',d:'На 3–4 см нижче згину коліна'},
+  {id:'c_am',p:'m',t:'Намастити ноги (LivRelief)',d:'Тонким шаром вранці'},
   {id:'p_md',p:'d',t:'Випити 1 таблетку Venixxa',d:'Вдень під час обіду'},
   {id:'p_ev',p:'e',t:'Випити 1 таблетку Venixxa',d:'Увечері під час вечері'},
-  {id:'c_pm',p:'e',t:'Зняти гольфи + LivRelief',d:'На ніч перед сном'}
+  {id:'c_pm',p:'e',t:'Намастити ноги (LivRelief)',d:'На ніч перед сном на чисту шкіру'}
 ],SK='vt_data_v2',SDK='vt_start_v2',C=201,G=60;
-let mem={},ok=1,cur=new Date();cur.setHours(12,0,0,0);
-const g=k=>{try{return localStorage.getItem(k)}catch{ok=0;return mem[k]||null}};
-const s=(k,v)=>{try{localStorage.setItem(k,v)}catch{ok=0;mem[k]=v}};
+let cur=new Date();cur.setHours(12,0,0,0);
+const g=k=>{try{return localStorage.getItem(k)}catch{return null}};
+const s=(k,v)=>{try{localStorage.setItem(k,v)}catch{}};
 const dk=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const ld=()=>{try{return JSON.parse(g(SK))||{}}catch{return{}}};
 const sv=d=>s(SK,JSON.stringify(d));
@@ -87,13 +84,12 @@ const st=()=>{let x=g(SDK);if(!x){x=dk(new Date());s(SDK,x)}return x};
 const tm=i=>{try{return new Date(i).toLocaleTimeString('uk-UA',{hour:'2-digit',minute:'2-digit'})}catch{return''}};
 function render(){
   const d=ld(),k=dk(cur),tk=dk(new Date()),r=d[k]||{checks:{},note:''};
-  if(!ok||location.protocol==='content:'){$('wB').style.display='block';$('sS').textContent='Тимчасова пам’ять'}
   const f=cur.toLocaleDateString('uk-UA',{weekday:'short',day:'numeric',month:'long'});
   $('dM').textContent=k===tk?'Сьогодні ('+f+')':f;
   $('tJ').style.visibility=k===tk?'hidden':'visible';
   const df=Math.floor((cur-new Date(st()+'T12:00:00'))/864e5)+1;
   $('dB').textContent=df>=1?'День '+df+' / 60':'До старту';
-  const dn=Math.min(G,Object.values(d).filter(x=>x.checks&&Object.keys(x.checks).length>=3).length),lf=Math.max(0,G-dn);
+  const dn=Math.min(G,Object.values(d).filter(x=>x.checks&&T.filter(t=>x.checks[t.id]).length>=3).length),lf=Math.max(0,G-dn);
   $('dN').textContent=dn;$('lN').textContent=lf;
   $('dR').style.strokeDashoffset=C*(1-dn/G);$('lR').style.strokeDashoffset=C*(1-lf/G);
   $('pL').textContent=Math.round(dn/G*100)+'% курсу';
