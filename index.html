@@ -11,10 +11,13 @@
 <title>Режим для вен</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#f8fafc;padding:14px;display:flex;justify-content:center}
-.app{width:100%;max-width:460px;padding-bottom:24px}
-header,.nav,.phead,.foot{display:flex;justify-content:space-between;align-items:center}
-header{margin-bottom:10px}h1{font-size:19px;margin:0}
+body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#f8fafc;padding:0 14px 24px;display:flex;justify-content:center}
+.app{width:100%;max-width:460px}
+header{position:sticky;top:0;z-index:20;background:rgba(15,23,42,.95);backdrop-filter:blur(8px);padding:12px 0;margin-bottom:8px;border-bottom:1px solid #1e293b;display:flex;justify-content:space-between;align-items:center;gap:8px}
+h1{font-size:18px;margin:0;white-space:nowrap}
+.hright{display:flex;align-items:center;gap:10px}
+.xbtn{background:#ef444422;border:1px solid #ef444466;color:#f87171;width:32px;height:32px;border-radius:9px;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.nav,.phead,.foot{display:flex;justify-content:space-between;align-items:center}
 .nav,.rcard,.prog,.card,.nbox{background:#1e293b;border:1px solid #334155;border-radius:13px}
 .nav{padding:8px 10px;margin-bottom:10px}
 .nbtn{background:#334155;color:#fff;border:none;border-radius:9px;width:36px;height:36px;font-size:18px}
@@ -40,12 +43,17 @@ circle{fill:none;stroke-width:8}.rbg{stroke:#0f172a}.rfg{stroke-linecap:round;tr
 .nbox{padding:11px;margin-top:12px}.nbox label{display:block;font-size:12px;color:#94a3b8;margin-bottom:5px}
 textarea{width:100%;background:#0f172a;border:1px solid #334155;border-radius:9px;color:#fff;padding:8px;font-family:inherit;font-size:14px;min-height:54px}
 .foot{margin-top:14px;font-size:12px;color:#94a3b8}.rbtn{background:none;border:1px solid #475569;color:#94a3b8;padding:5px 9px;border-radius:8px;font-size:12px}
-.cbtn{width:100%;margin-top:14px;padding:13px;background:#334155;border:1px solid #475569;border-radius:13px;color:#f8fafc;font-size:15px;font-weight:600;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="app">
-<header><h1>🦵 Режим для вен</h1><span id="dB" style="font-size:13px;color:#38bdf8;font-weight:600">День 1 / 60</span></header>
+<header>
+  <h1>🦵 Режим для вен</h1>
+  <div class="hright">
+    <span id="dB" style="font-size:13px;color:#38bdf8;font-weight:600">День 1 / 60</span>
+    <button class="xbtn" id="cB" title="Закрити">✕</button>
+  </div>
+</header>
 <div class="nav">
   <button class="nbtn" id="pD">‹</button>
   <div><div class="dmain" id="dM">Сьогодні</div><div class="dsub" id="tJ">На сьогодні</div></div>
@@ -72,7 +80,6 @@ textarea{width:100%;background:#0f172a;border:1px solid #334155;border-radius:9p
 <div class="stitle">Вечір / Ніч</div><div id="eT"></div>
 <div class="nbox"><label for="dNt">Нотатка за день:</label><textarea id="dNt" placeholder="Як ноги після рейсу..."></textarea></div>
 <div class="foot"><span>Збереження активне</span><button class="rbtn" id="rB">Дата старту</button></div>
-<button class="cbtn" id="cB">Закрити</button>
 </div>
 <script>
 if('serviceWorker'in navigator)navigator.serviceWorker.register('/Vein-tracker/sw.js');
@@ -97,7 +104,7 @@ function render(){
   $('tJ').style.visibility=k===tk?'hidden':'visible';
   const df=Math.floor((cur-new Date(st()+'T12:00:00'))/864e5)+1;
   $('dB').textContent=df>=1?'День '+df+' / 60':'До старту';
-  const dn=Math.min(G,Object.values(d).filter(x=>x.checks&&T.filter(t=>x.checks[t.id]).length>=1).length),lf=Math.max(0,G-dn);
+  const dn=Math.min(G,Object.values(d).filter(x=>x.checks&&Object.keys(x.checks).length>=1).length),lf=Math.max(0,G-dn);
   $('dN').textContent=dn;$('lN').textContent=lf;
   $('dR').style.strokeDashoffset=C*(1-dn/G);$('lR').style.strokeDashoffset=C*(1-lf/G);
   $('pL').textContent=Math.round(dn/G*100)+'% курсу';
